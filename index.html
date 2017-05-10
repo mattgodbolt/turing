@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <style>
+        .tm div.cell {
+            display: inline-block;
+            width: 1.4em;
+            height: 1.4em;
+            border: 1px solid black;
+            text-align: center;
+            font-family: monospace;
+        }
+        .tm div.cell.current {
+            background: #fcc;
+        }
+    </style>
+    <script src="turing.js"></script>
+</head>
+<body>
+<h3>State <span id="state"></span></h3>
+<div id="tm" class="tm">
+</div>
+<div class="template">
+    <div id="cell-template" class="cell"></div>
+</div>
+</body>
+</html>
