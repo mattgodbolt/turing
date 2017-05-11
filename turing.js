@@ -9,6 +9,8 @@ var breakpoints = {};
 var stopping = false;
 var breakOnNewState = false;
 var stateNode;
+var tableNode;
+var rowTemplate;
 
 function fillWithZeros() {
     return {
@@ -171,10 +173,33 @@ var states = multiply();
 var stateName;
 
 function setState(name) {
-    if (name === stateName) return;
-    if (!states[name]) throw "Unknown state '" + name + "'";
+    var changed = name !== stateName;
     stateName = name;
     stateNode.innerText = name;
+
+    var state = states[name];
+    if (!state) throw "Unknown state '" + name + "'";
+
+    while (tableNode.children.length) {
+        tableNode.children[0].remove();
+    }
+
+    var scanned = current ? current.innerText : "";
+    if (state[scanned] === undefined) {
+        scanned = "any";
+    }
+
+    Object.keys(state).forEach(key => {
+        var newRow = rowTemplate.cloneNode(true);
+        var splat = state[key].split(" ");
+        if (scanned === key) newRow.classList.add("current");
+        newRow.getElementsByClassName("cell")[0].innerText = key;
+        newRow.getElementsByClassName("commands")[0].innerText = splat.slice(0, -1).join(", ");
+        newRow.getElementsByClassName("nextState")[0].innerText = splat[splat.length - 1];
+        tableNode.append(newRow);
+    });
+
+    if (!changed) return;
     if (breakpoints[name]) stopping = true;
     if (breakOnNewState) {
         stopping = true;
@@ -197,7 +222,9 @@ function step() {
     var state = states[stateName];
     if (!state) throw "No such state '" + stateName + "'";
     var rule = state[scanned];
-    if (rule === undefined) rule = state["any"];
+    if (rule === undefined) {
+        rule = state["any"];
+    }
     if (rule === undefined) {
         throw "ERROR! no rule for scanned symbol '" + scanned + "'";
     }
@@ -223,12 +250,16 @@ function init() {
     tm = document.getElementById("tm");
     var cell = document.getElementById("cell-template");
     for (var i = 0; i < 90; ++i) {
-        var newCell = cell.cloneNode();
-        newCell.removeAttribute("cell-template");
+        var newCell = cell.cloneNode(true);
+        newCell.removeAttribute("id");
         tm.append(newCell);
         cells.push(newCell);
     }
     stateNode = document.getElementById('state');
+    tableNode = document.getElementById('machine-table-body');
+    rowTemplate = document.getElementById('machine-row-template');
+    rowTemplate.removeAttribute("id");
+    rowTemplate.remove();
     setState('begin');
     setCurrent(cells[0]);
     document.addEventListener("keydown", e => {

@@ -10,16 +10,62 @@
             text-align: center;
             font-family: monospace;
         }
+
         .tm div.cell.current {
             background: #fcc;
+        }
+
+        table, td, th {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        tbody {
+            text-align: center;
+        }
+
+        td.cell {
+            width: 3em;
+        }
+
+        td.commands {
+            width: 10em;
+        }
+
+        td.nextState {
+            width: 8em;
+        }
+
+        tr.current {
+            background: #fcc;
+        }
+
+        .template {
+            display: none;
         }
     </style>
     <script src="turing.js"></script>
 </head>
 <body>
-<h3>State <span id="state"></span></h3>
 <div id="tm" class="tm">
 </div>
+<h3>State <span id="state"></span></h3>
+<table>
+    <thead>
+    <tr>
+        <th>Cell</th>
+        <th>Commands</th>
+        <th>Next state</th>
+    </tr>
+    </thead>
+    <tbody id="machine-table-body">
+    <tr id="machine-row-template">
+        <td class="cell"></td>
+        <td class="commands"></td>
+        <td class="nextState"></td>
+    </tr>
+    </tbody>
+</table>
 <div class="template">
     <div id="cell-template" class="cell"></div>
 </div>
