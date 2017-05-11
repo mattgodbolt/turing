@@ -249,6 +249,7 @@ function step() {
 function init() {
     tm = document.getElementById("tm");
     var cell = document.getElementById("cell-template");
+    cell.remove();
     for (var i = 0; i < 90; ++i) {
         var newCell = cell.cloneNode(true);
         newCell.removeAttribute("id");

@@ -2,16 +2,14 @@
 <html>
 <head>
     <style>
-        .tm div.cell {
-            display: inline-block;
+        .tm td.cell {
             width: 1.4em;
             height: 1.4em;
-            border: 1px solid black;
             text-align: center;
             font-family: monospace;
         }
 
-        .tm div.cell.current {
+        .tm td.cell.current {
             background: #fcc;
         }
 
@@ -39,16 +37,15 @@
         tr.current {
             background: #fcc;
         }
-
-        .template {
-            display: none;
-        }
     </style>
     <script src="turing.js"></script>
 </head>
 <body>
-<div id="tm" class="tm">
-</div>
+<table class="tm">
+    <tr id="tm">
+        <td id="cell-template" class="cell"></td>
+    </tr>
+</table>
 <h3>State <span id="state"></span></h3>
 <table>
     <thead>
@@ -66,8 +63,5 @@
     </tr>
     </tbody>
 </table>
-<div class="template">
-    <div id="cell-template" class="cell"></div>
-</div>
 </body>
 </html>
