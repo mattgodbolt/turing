@@ -37,6 +37,16 @@
         tr.current {
             background: #fcc;
         }
+
+        div.info {
+            border: 1px solid black;
+            border-radius: 8px;
+            padding: 10px;
+            position: absolute;
+            bottom: 5em;
+            background: #ddd;
+            width: 40%;
+        }
     </style>
     <script src="turing.js"></script>
 </head>
@@ -63,5 +73,20 @@
     </tr>
     </tbody>
 </table>
+
+<div class="info">
+    <p>
+        Turing emulator, using the Turing machine from the amazing book
+        <a href="http://www.theannotatedturing.com/">The Annotated Turing</a> by Charles Petzold.
+    </p>
+    <p>
+        Hit 'g' to go, 's' to stop. Single step with 'n' / 'N' / 'm' (animation step to next state, step to next state,
+        step to next cell).
+    </p>
+    <p>
+        The example here calculates root 2 in binary. All inlined javascript, no external dependencies. All state's
+        in the browser DOM. <a href="https://github.com/mattgodbolt/turing">Source is on GitHub</a>.
+    </p>
+</div>
 </body>
 </html>
